@@ -1,7 +1,8 @@
 "use client";
 
-import ScrollReveal from "@/components/ui/ScrollReveal";
-import Button from "@/components/ui/Button";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const perks = [
   { title: "Remote-First", description: "Work from anywhere. We care about output, not office hours." },
@@ -32,91 +33,108 @@ export default function CareersContent() {
   return (
     <>
       {/* Perks */}
-      <section className="py-24 lg:py-32 bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <p className="text-sm font-semibold uppercase tracking-widest text-blue-600 mb-4">
-                Why Join Us
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
-                Work That Matters
-              </h2>
-            </div>
-          </ScrollReveal>
+      <section className="py-24 border-t border-[var(--border-color)]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <span className="section-label">Why Join Us</span>
+            <h2 className="text-f-h2-mobile lg:text-f-h2 mt-6">
+              Work that{" "}
+              <span className="text-[var(--accent-primary)]">matters</span>
+            </h2>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {perks.map((perk, i) => (
-              <ScrollReveal key={perk.title} delay={i * 0.1}>
-                <div className="rounded-2xl border border-slate-100 bg-white p-8 h-full">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    {perk.title}
-                  </h3>
-                  <p className="text-slate-500 leading-relaxed">
-                    {perk.description}
-                  </p>
-                </div>
-              </ScrollReveal>
+              <motion.div
+                key={perk.title}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.1 }}
+                className="card p-6 md:p-8"
+              >
+                <h3 className="text-f-h3-mobile lg:text-f-h3 mb-2">
+                  {perk.title}
+                </h3>
+                <p className="text-f-p text-[var(--foreground-dim)]">
+                  {perk.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Open Positions */}
-      <section className="py-24 lg:py-32 bg-slate-50">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <p className="text-sm font-semibold uppercase tracking-widest text-blue-600 mb-4">
-                Open Positions
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
-                Current Openings
-              </h2>
-            </div>
-          </ScrollReveal>
+      {/* Openings */}
+      <section className="py-24 border-t border-[var(--border-color)]">
+        <div className="max-w-3xl mx-auto px-6 lg:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <span className="section-label">Open Positions</span>
+            <h2 className="text-f-h2-mobile lg:text-f-h2 mt-6">
+              Current{" "}
+              <span className="text-[var(--accent-primary)]">openings</span>
+            </h2>
+          </motion.div>
 
-          <div className="space-y-4 max-w-3xl mx-auto">
+          <div className="space-y-4">
             {openings.map((job, i) => (
-              <ScrollReveal key={job.title} delay={i * 0.1}>
-                <div className="group rounded-2xl border border-slate-100 bg-white p-8 hover:border-blue-200 hover:shadow-sm transition-all duration-300">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900 mb-1">
-                        {job.title}
-                      </h3>
-                      <p className="text-sm text-blue-600 font-medium mb-2">
-                        {job.type}
-                      </p>
-                      <p className="text-sm text-slate-500">
-                        {job.description}
-                      </p>
-                    </div>
-                    <div className="flex-shrink-0">
-                      <Button href="/contact" variant="outline" size="sm">
-                        Apply
-                      </Button>
-                    </div>
+              <motion.div
+                key={job.title}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.1 }}
+                className="card p-6 md:p-8"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h3 className="text-f-h4 mb-1">{job.title}</h3>
+                    <p className="text-f-p text-[var(--accent-primary)] mb-2">
+                      {job.type}
+                    </p>
+                    <p className="text-f-p text-[var(--foreground-dim)]">
+                      {job.description}
+                    </p>
                   </div>
+                  <Link href="/contact" className="btn-secondary flex-shrink-0">
+                    Apply
+                    <ArrowRight size={14} />
+                  </Link>
                 </div>
-              </ScrollReveal>
+              </motion.div>
             ))}
           </div>
 
-          <ScrollReveal delay={0.3}>
-            <div className="text-center mt-12">
-              <p className="text-slate-500">
-                Don&apos;t see the right role?{" "}
-                <a
-                  href="/contact"
-                  className="font-medium text-blue-600 hover:text-blue-700 transition-colors"
-                >
-                  Send us your resume
-                </a>{" "}
-                — we&apos;re always looking for talented engineers.
-              </p>
-            </div>
-          </ScrollReveal>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-center mt-12"
+          >
+            <p className="text-f-p text-[var(--foreground-dim)]">
+              Don&apos;t see the right role?{" "}
+              <Link
+                href="/contact"
+                className="actionable text-[var(--accent-primary)]"
+              >
+                Send us your resume
+              </Link>{" "}
+              — we&apos;re always looking for talented engineers.
+            </p>
+          </motion.div>
         </div>
       </section>
     </>

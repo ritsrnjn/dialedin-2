@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import ScrollReveal from "@/components/ui/ScrollReveal";
+import { motion } from "framer-motion";
+import { ArrowRight, Check } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
 
 const budgetOptions = [
@@ -28,53 +29,45 @@ const serviceOptions = [
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [selectedBudget, setSelectedBudget] = useState("");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: Wire up to Supabase or email service
     setSubmitted(true);
   }
 
+  const inputClasses =
+    "w-full bg-transparent border border-[var(--border-color)] px-4 py-3 text-[var(--foreground)] text-f-p placeholder:text-[var(--foreground-dim)] focus:border-[var(--accent-primary)] focus:outline-none transition-colors";
+
   return (
-    <section className="py-24 lg:py-32 bg-white">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="py-24 border-t border-[var(--border-color)]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           {/* Form */}
           <div className="lg:col-span-2">
-            <ScrollReveal>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               {submitted ? (
-                <div className="rounded-2xl border border-green-200 bg-green-50 p-12 text-center">
-                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100 mb-6">
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="rgb(22, 163, 74)"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
+                <div className="card p-12 text-center">
+                  <div className="w-16 h-16 bg-[var(--accent-green)] flex items-center justify-center mx-auto mb-6">
+                    <Check size={32} color="#000" />
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">
-                    Message Sent
-                  </h3>
-                  <p className="text-slate-500">
+                  <h3 className="text-f-h3 mb-2">Message Sent</h3>
+                  <p className="text-f-p text-[var(--foreground-dim)]">
                     Thanks for reaching out. We&apos;ll get back to you within
                     one business day.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-slate-700 mb-2"
-                      >
+                      <label htmlFor="name" className="block text-f-p text-[var(--foreground-muted)] mb-2">
                         Full Name *
                       </label>
                       <input
@@ -82,15 +75,12 @@ export default function ContactForm() {
                         id="name"
                         name="name"
                         required
-                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                        className={inputClasses}
                         placeholder="Jane Smith"
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-slate-700 mb-2"
-                      >
+                      <label htmlFor="email" className="block text-f-p text-[var(--foreground-muted)] mb-2">
                         Work Email *
                       </label>
                       <input
@@ -98,7 +88,7 @@ export default function ContactForm() {
                         id="email"
                         name="email"
                         required
-                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                        className={inputClasses}
                         placeholder="jane@company.com"
                       />
                     </div>
@@ -107,50 +97,41 @@ export default function ContactForm() {
                   {/* Company & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label
-                        htmlFor="company"
-                        className="block text-sm font-medium text-slate-700 mb-2"
-                      >
+                      <label htmlFor="company" className="block text-f-p text-[var(--foreground-muted)] mb-2">
                         Company
                       </label>
                       <input
                         type="text"
                         id="company"
                         name="company"
-                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                        className={inputClasses}
                         placeholder="Acme Inc."
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium text-slate-700 mb-2"
-                      >
+                      <label htmlFor="phone" className="block text-f-p text-[var(--foreground-muted)] mb-2">
                         Phone
                       </label>
                       <input
                         type="tel"
                         id="phone"
                         name="phone"
-                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all"
+                        className={inputClasses}
                         placeholder="(555) 000-0000"
                       />
                     </div>
                   </div>
 
-                  {/* Service Interest */}
+                  {/* Service */}
                   <div>
-                    <label
-                      htmlFor="service"
-                      className="block text-sm font-medium text-slate-700 mb-2"
-                    >
+                    <label htmlFor="service" className="block text-f-p text-[var(--foreground-muted)] mb-2">
                       What do you need? *
                     </label>
                     <select
                       id="service"
                       name="service"
                       required
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all appearance-none"
+                      className={`${inputClasses} appearance-none`}
                     >
                       <option value="">Select a service area</option>
                       {serviceOptions.map((opt) => (
@@ -161,37 +142,33 @@ export default function ContactForm() {
                     </select>
                   </div>
 
-                  {/* Budget Range */}
+                  {/* Budget */}
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-3">
+                    <label className="block text-f-p text-[var(--foreground-muted)] mb-3">
                       Budget Range
                     </label>
                     <div className="flex flex-wrap gap-3">
                       {budgetOptions.map((opt) => (
-                        <label
+                        <button
                           key={opt}
-                          className="relative cursor-pointer"
+                          type="button"
+                          onClick={() => setSelectedBudget(opt)}
+                          className={`px-4 py-2 text-f-p border transition-all ${
+                            selectedBudget === opt
+                              ? "border-[var(--accent-primary)] text-[var(--accent-primary)]"
+                              : "border-[var(--border-color)] text-[var(--foreground-dim)] hover:border-[var(--foreground-dim)]"
+                          }`}
                         >
-                          <input
-                            type="radio"
-                            name="budget"
-                            value={opt}
-                            className="peer sr-only"
-                          />
-                          <span className="inline-block rounded-full border border-slate-200 px-5 py-2 text-sm text-slate-600 peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:text-blue-700 transition-all hover:border-slate-300">
-                            {opt}
-                          </span>
-                        </label>
+                          {opt}
+                        </button>
                       ))}
                     </div>
+                    <input type="hidden" name="budget" value={selectedBudget} />
                   </div>
 
-                  {/* Project Description */}
+                  {/* Message */}
                   <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-slate-700 mb-2"
-                    >
+                    <label htmlFor="message" className="block text-f-p text-[var(--foreground-muted)] mb-2">
                       Tell us about your project *
                     </label>
                     <textarea
@@ -199,83 +176,72 @@ export default function ContactForm() {
                       name="message"
                       required
                       rows={5}
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all resize-none"
+                      className={`${inputClasses} resize-none`}
                       placeholder="Describe your project, goals, timeline, and any specific requirements..."
                     />
                   </div>
 
                   {/* Submit */}
-                  <button
-                    type="submit"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-9 py-4 text-lg font-semibold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-700 transition-all duration-300"
-                  >
+                  <button type="submit" className="btn-primary text-base py-4 px-10">
                     Send Message
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
+                    <ArrowRight size={18} />
                   </button>
                 </form>
               )}
-            </ScrollReveal>
+            </motion.div>
           </div>
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <ScrollReveal delay={0.2}>
-              <div className="sticky top-32 space-y-10">
-                <div>
-                  <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-4">
-                    Email
-                  </h3>
-                  <a
-                    href={`mailto:${COMPANY.email}`}
-                    className="text-lg font-medium text-slate-900 hover:text-blue-600 transition-colors"
-                  >
-                    {COMPANY.email}
-                  </a>
-                </div>
-
-                <div>
-                  <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-4">
-                    Phone
-                  </h3>
-                  <a
-                    href={`tel:${COMPANY.phone}`}
-                    className="text-lg font-medium text-slate-900 hover:text-blue-600 transition-colors"
-                  >
-                    {COMPANY.phone}
-                  </a>
-                </div>
-
-                <div>
-                  <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-4">
-                    Response Time
-                  </h3>
-                  <p className="text-slate-600">
-                    We respond to every inquiry within one business day.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-slate-50 border border-slate-100 p-6">
-                  <h3 className="font-semibold text-slate-900 mb-2">
-                    Not sure where to start?
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">
-                    That&apos;s perfectly fine. Just describe your idea or challenge
-                    and we&apos;ll help you figure out the right approach.
-                  </p>
-                </div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="sticky top-24 space-y-10"
+            >
+              <div>
+                <p className="text-f-p uppercase tracking-widest text-[var(--foreground-dim)] mb-3">
+                  Email
+                </p>
+                <a
+                  href={`mailto:${COMPANY.email}`}
+                  className="actionable text-f-h4 text-[var(--foreground)]"
+                >
+                  {COMPANY.email}
+                </a>
               </div>
-            </ScrollReveal>
+
+              <div>
+                <p className="text-f-p uppercase tracking-widest text-[var(--foreground-dim)] mb-3">
+                  Phone
+                </p>
+                <a
+                  href={`tel:${COMPANY.phone}`}
+                  className="actionable text-f-h4 text-[var(--foreground)]"
+                >
+                  {COMPANY.phone}
+                </a>
+              </div>
+
+              <div>
+                <p className="text-f-p uppercase tracking-widest text-[var(--foreground-dim)] mb-3">
+                  Response Time
+                </p>
+                <p className="text-f-p text-[var(--foreground-muted)]">
+                  We respond to every inquiry within one business day.
+                </p>
+              </div>
+
+              <div className="card p-6">
+                <h3 className="text-f-h4 mb-2">Not sure where to start?</h3>
+                <p className="text-f-p text-[var(--foreground-dim)]">
+                  That&apos;s perfectly fine. Just describe your idea or
+                  challenge and we&apos;ll help you figure out the right
+                  approach.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

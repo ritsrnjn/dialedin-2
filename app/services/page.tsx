@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import PageHero from "@/components/ui/PageHero";
 import ServicesList from "@/components/services/ServicesList";
-import CTA from "@/components/landing/CTA";
+import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
   title: "Services | DialedIn Solutions",

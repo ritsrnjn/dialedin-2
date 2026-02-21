@@ -1,6 +1,6 @@
 "use client";
 
-import ScrollReveal from "@/components/ui/ScrollReveal";
+import { motion } from "framer-motion";
 import { COMPANY } from "@/lib/constants";
 
 const sections = [
@@ -22,7 +22,7 @@ const sections = [
   {
     title: "Data Security",
     content:
-      "We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet is 100% secure.",
+      "We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.",
   },
   {
     title: "Cookies",
@@ -32,7 +32,7 @@ const sections = [
   {
     title: "Your Rights",
     content:
-      "You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time. To exercise these rights, contact us at the email address below.",
+      "You have the right to access, correct, or delete your personal information. You may also opt out of marketing communications at any time.",
   },
   {
     title: "Changes to This Policy",
@@ -41,32 +41,36 @@ const sections = [
   },
   {
     title: "Contact Us",
-    content: `If you have questions about this Privacy Policy or our data practices, please contact us at ${COMPANY.email}.`,
+    content: `If you have questions about this Privacy Policy, please contact us at ${COMPANY.email}.`,
   },
 ];
 
 export default function PrivacyContent() {
   return (
-    <section className="py-24 lg:py-32 bg-white">
-      <div className="mx-auto max-w-3xl px-6 lg:px-8">
-        <ScrollReveal>
-          <p className="text-sm text-slate-400 mb-12">
-            Last updated: February 2026
-          </p>
-        </ScrollReveal>
+    <section className="py-24 border-t border-[var(--border-color)]">
+      <div className="max-w-3xl mx-auto px-6 lg:px-10">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-f-p text-[var(--foreground-dim)] mb-12"
+        >
+          Last updated: February 2026
+        </motion.p>
 
         <div className="space-y-10">
           {sections.map((section, i) => (
-            <ScrollReveal key={section.title} delay={i * 0.05}>
-              <div>
-                <h2 className="text-xl font-bold text-slate-900 mb-3">
-                  {section.title}
-                </h2>
-                <p className="text-slate-500 leading-relaxed">
-                  {section.content}
-                </p>
-              </div>
-            </ScrollReveal>
+            <motion.div
+              key={section.title}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: i * 0.05 }}
+            >
+              <h2 className="text-f-h4 mb-3">{section.title}</h2>
+              <p className="text-f-p text-[var(--foreground-dim)] leading-relaxed">
+                {section.content}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>

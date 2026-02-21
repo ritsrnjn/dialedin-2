@@ -1,18 +1,20 @@
-import Hero from "@/components/landing/Hero";
-import Partners from "@/components/landing/Partners";
-import Services from "@/components/landing/Services";
-import Process from "@/components/landing/Process";
-import Stats from "@/components/landing/Stats";
-import CTA from "@/components/landing/CTA";
+import Hero from "@/components/Hero";
+import Services from "@/components/Services";
+import Process from "@/components/Process";
+import Stats from "@/components/Stats";
+import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
+import CTA from "@/components/CTA";
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <Partners />
       <Services />
       <Process />
       <Stats />
+      <Testimonials />
+      <FAQ />
       <CTA />
     </main>
   );
