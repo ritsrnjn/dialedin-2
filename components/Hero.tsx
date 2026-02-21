@@ -33,7 +33,7 @@ export default function Hero() {
             </div>
           }
         >
-          <Spline scene="https://prod.spline.design/NQ9Qs07-tYHSubNq/scene.splinecode" />
+          <Spline scene="/3d-models/scene.splinecode" />
         </Suspense>
       </motion.div>
 
